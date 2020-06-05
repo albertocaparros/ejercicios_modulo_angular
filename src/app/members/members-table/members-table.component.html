@@ -1,9 +1,19 @@
 <h2>Members Page</h2>
-<button (click)="loadMembers()">Load</button>
-<table>
-  <thead app-member-head></thead>
-  <tbody>
-    <tr app-member-row [member]="member" *ngFor="let member of members">
-    </tr>
-  </tbody>
-</table>
+<div>
+  <em *ngIf="!existe" style="color: maroon;"
+    >No existe ninguna organización con ese nombre</em
+  >
+  <br />
+  <label for="organization">Organization:</label>
+  <br />
+  <input type="text" [(ngModel)]="organization" />
+</div>
+<div>
+  <button (click)="loadMembers()">Load</button>
+  <table>
+    <thead app-member-head></thead>
+    <tbody>
+      <tr app-member-row [member]="member" *ngFor="let member of members"></tr>
+    </tbody>
+  </table>
+</div>

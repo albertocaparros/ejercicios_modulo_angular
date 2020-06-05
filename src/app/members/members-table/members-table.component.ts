@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 import { MemberEntity } from "../models/member.model";
 import { MembersApiService } from "../members-api.service";
@@ -10,14 +10,21 @@ import { MembersApiService } from "../members-api.service";
 })
 export class MembersTableComponent {
   members: MemberEntity[];
-  organization: string = "lemoncode";
+  @Input() organization: string = "lemoncode";
+  existe: boolean = true;
 
   constructor(private membersApi: MembersApiService) {}
 
   loadMembers() {
     this.membersApi.getAllMembers(this.organization).subscribe(
-      (ms) => (this.members = ms),
-      (error) => console.log(error)
+      (ms) => {
+        this.members = ms;
+        this.existe = true;
+      },
+      (error) => {
+        console.log(error);
+        this.existe = false;
+      }
     );
   }
 }
